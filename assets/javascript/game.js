@@ -17,6 +17,8 @@
 // }
 // Congratulate the player on guessing the word
 
+
+//an array of words to start the game, lowercase
 var words = [
     "jack sparrow",
     "han solo",
@@ -64,8 +66,35 @@ var words = [
     "borat",
 ]
 
+//picks a random word from the chosen array, names new var
 var word = words[Math.floor(Math.random() * words.length)];
 
+//for loop variable i starts at 0 and goes up to but does not include word.length, and eacg time we add a new element to answer
+//when the loop is finished the answer will be the same length as the word
+var answer = [];
+    for (var i = 0; i < word.length; i++) {
+        answer[i] = "_";
+    }
+
+//keeps track if how many letters are left to guess, reduced by one when a player guesses correct
+var remaining = word.length;
+
+//while loop continues loop as long as remaining variable is greater than 0
+//needs to update for every correct guess, loop ends when it equals 0
+while (remaining > 0) {
+ // Game code goes here
+ // Show the player their progress
+ // Take input from the player
+ // Update answer and remaining for every correct guess
+    var guess = prompt("Guess a letter, or click Cancel to stop playing.");
+        if (guess === null) {
+            break;//immediately stops loop, even while condition is true
+        } else if (guess.length !== 1) {
+            alert("Please enter a single letter.");
+        } else {
+ // Update the game state with the guess
+}
+}
 
 var userGuess = [
   "a",

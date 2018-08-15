@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel=¨stylesheet¨ type=¨text/css¨ href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
         crossorigin="anonymous">
@@ -25,39 +25,45 @@
     <div id="game">
         <div class="container jumbotron">
             
-            <p>Guess the character by pressing any key to start playing!</p>
+            <p>Press any key to get started!</p>
 
 
-            <p>Wins
+            <p id="wins">Wins:
                 <br>
             </p>
             <br>
+<!--
             <p>Current Word
                 <br>
             </p>
+-->
             <br>
-            <p>_ _ _ _ _ _ _ _
+            <p id="answer">_ _ _ _ _ _ _ _
                 <br>
             </p>
             <br>
-            <p>Number of Guesses Remaining
+            <p id="remaining">Number of Guesses Remaining:
                 <br>
             </p>
             <br>
-            <p>#
+            <p id="lives">Lives: 
                 <br>
             </p>
             <br>
-            <p>Letters Already Guessed
+            <p id="guess">Letters Already Guessed:
                 <br>
             </p>
+<!--
             <br>
             <p>ABCDE
                 <br>
             </p>
+-->
 
 
-
+<div class="container">
+	<button id="reset">Play again</button>	
+</div>
 
         </div>
 

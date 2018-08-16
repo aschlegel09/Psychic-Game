@@ -1,4 +1,5 @@
-window.onload = function() {
+window.onload = function()  {
+//define all possible letters			 
   var alphabet = [
     "a",
     "b",
@@ -27,271 +28,236 @@ window.onload = function() {
     "y",
     "z"
   ];
-  // Pick a random word
-  //an array of words to start the game, lowercase
+  
+//create array of words to start the game, all lowercase, spaces with '-'
   var wordList = [
-    "jack sparrow",
-    "han solo",
-    "clark kent",
-    "james bond",
-    "luke skywalker",
-    "marty mcfly",
-    "indiana jones",
-    "ferris bueller",
-    "john mcclane",
-    "rocky balboa",
-    "forrest gump",
+    "jack-sparrow",
+    "han-solo",
+    "clark-kent",
+    "james-bond",
+    "luke-skywalker",
+    "marty-mcfly",
+    "indiana-jones",
+    "ferris-bueller",
+    "john-mcclane",
+    "rocky-balboa",
+    "forrest-gump",
     "aragorn",
     "neo",
     "yoda",
-    "obi-wan kenobi",
+    "obi-wan-kenobi",
     "woody",
-    "anakin skywalker",
-    "ace ventura",
-    "kevin mccallister",
+    "anakin-skywalker",
+    "ace-ventura",
+    "kevin-mccallister",
     "maximus",
-    "jason bourne",
+    "jason-bourne",
     "terminator",
-    "ethan hunt",
-    "tony montana",
-    "donnie darko",
-    "captain kirk",
-    "peter parker",
-    "tony stark",
+    "ethan-hunt",
+    "tony-montana",
+    "donnie-darko",
+    "captain-kirk",
+    "peter-parker",
+    "tony-stark",
     "shrek",
-    "elle woods",
-    "bruce wayne",
-    "sweeney todd",
-    "benjamin button",
-    "napoleon dynamite",
+    "elle-woods",
+    "bruce-wayne",
+    "sweeney-todd",
+    "benjamin-button",
+    "napoleon-dynamite",
     "dory",
-    "harry potter",
+    "harry-potter",
     "gandalf",
     "mclovin",
     "wolverine",
-    "captain america",
-    "miranda priestly",
-    "derek zoolander",
-    "ron burgundy",
+    "captain-america",
+    "miranda-priestly",
+    "derek-zoolander",
+    "ron-burgundy",
     "borat"
   ];
-  var guess; //user guess defined
+//  var guess; //user guess defined
+  var chosenWord = "";
   var correctLetter = []; //stores correctly guessed letters
-  var guesses = []; //stores guessed letters
-  var counter; //counts correct letters
+  var incorrectLetters = []; //stores incorrectly guessed letters
+  var blanksAndSuccesses = [];//stores right or wrong
+  var blanks = 0; //counts correct letters
   var lives = 9; //counts user lives
-  console.log(lives + " lives");
-  document.getElementById("lives").innerHTML = "Lives: " + lives;
-  var space; //for number of spaces in word '-'
-  // pick a random word from the chosen array, name new var
-  var randomWord = wordList[Math.floor(Math.random() * wordList.length)];
-  console.log(randomWord);
+  var space = "-"; //for number of spaces in word '-'
+  var wins = 0;
+  var losses = 0;
 
-  // MAIN PROCESS
-  // ==============================================================================
+function startGame (){
+	lives = 9;
+	blanksAndSuccesses = [];
+	incorrectLetters = [];
+	// pick a random word from the chosen array, name new var
+  chosenWord = wordList[Math.floor(Math.random() * wordList.length)];
+  correctLetter = chosenWord.split("");
+  blanks = correctLetter.length;
+  console.log(blanks);
+  console.log(chosenWord);
 
-  // Captures keyboard input. Depending on the letter pressed it will "call" (execute) different functions.
-  // document.onkeyup = function(event) {
-  //   var letter = event.key.toLowerCase();
-  //   // Determines which key was pressed.
-  //   for (var n = 0; n < alphabet.length; n++) {
-  //     // console.log("You have used " + lives);
-  //     // Captures the key press, converts it to lowercase, and saves it to a variable.
-
-  //     // If the letter is h, run the following functions/methods.
-  //     if (letter === alphabet[n]) {
-  //       console.log(letter);
-  //     }
-
-  var userText = document.getElementById("guess");
-
-  // Next, we give JavaScript a function to execute when onkeyup event fires.
-  document.onkeyup = function(event) {
-    userText.textContent = event.key;
-  };
-  // car.print();
-
-  // For Loop for alphabet
-  for (var i = 0; i < alphabet.length; i++) {
-    console.log(alphabet[i]);
+  for (var u = 0; u < blanks; u++){
+	  blanksAndSuccesses.push("_");
   }
-  console.log("---------");
-  
-// For Loop for wordList
-for (var n = 0; n < wordList.length; n++) {
-  console.log(wordList[n]);
+	console.log(blanksAndSuccesses);
+	document.getElementById("answer").innerHTML = blanksAndSuccesses.join(" ");
+	document.getElementById("lives").innerHTML = ("Lives: " + lives);
+	document.getElementById("incorrectLetters").innerHTML = incorrectLetters.join(" ");
+}		 
+//get input from user
+ 
+function checkLetters(letter){
+    var letterInWord = false;
+//1. Compare the letter the user picks matches any of the letters in the word
+//2. I want a conditional statement to determine if the letter the user picked is in the word. If so, do something, if not, do something else.
+    for(var i = 0; i < blanks; i++){
+        if (chosenWord[i] === letter){
+            letterInWord = true;
+        }}
+//will only run if above for loop is true
+    if(letterInWord){
+        for (i = 0; i < blanks; i++) {
+            if (chosenWord[i] === letter) {
+                blanksAndSuccesses[i] = letter;
+            } console.log("correct: " + blanksAndSuccesses);
+        }
+//3. If the user is wrong we want to decrease the lives variables by one
+    }  else{ //if letter is wrong
+        lives--;
+        incorrectLetters.push(letter);
+    }
+    console.log("wrong guesses: " + incorrectLetters);
 }
-console.log("---------");
+/* to check if a letter is already in teh wrong guesses array. set up an if/else conditional that will run a for loop that will iterate ocer all teh letters and then use the if/else to check if it already exists. */
 
+function roundComplete() {
+    /*
+    1. Its going to update the HTML with the letters that are in the word
+    2. Its going to update the HTML with guesses we have left
+    3. Its going to update the HTML to show the wrong guesses
+    4. Its going to determine whether the user won the game or not
+    */
+    document.getElementById('answer').innerHTML = blanksAndSuccesses.join(" ");
+    document.getElementById('lives').innerHTML = ("Lives: " + lives);
+    document.getElementById('incorrectLetters').innerHTML = incorrectLetters.join(" ");
 
-  for (var s = 0; s < randomWord.length; s++) {
-    correctLetter[s] = "_";
-  }
-  var answer = [];
-     for (var i = 0; i < randomWord.length; i++) {
-         answer[i] = "_";
-     }
+        console.log(correctLetter);
+        console.log(blanksAndSuccesses);
+    	if(correctLetter.join(" ") === blanksAndSuccesses.join(" ")){
+    		wins++;
+    		alert("You correctly guessed: " + chosenWord);
+    		document.getElementById("wins").innerHTML = ("Wins: " + wins);
+    		startGame();
+    	}else if(lives === 0){
+			losses++;
+    		document.getElementById("losses").innerHTML = ("Losses: " + losses);
+    		document.getElementById("incorrectLetters").innerHTML = "Letters already guessed: ";
+    		alert("You lose :(");
+			startGame();
+    	}}			 
+startGame();
 
-  document.getElementById("answer").innerHTML = correctLetter.join(" ");
-  console.log(randomWord);
-};
-
-
-
-
-
-// // This function is run whenever the user presses a key.
-// document.onkeyup = function(event) {
-//   if (guess === alphabet[n]) var guess = event.key;
-//   // };
-// };
-
-//keeps track of how many letters are left to guess, need to reduce by one when a player guesses correct
-//  var remaining = randomWord.length;
-// for (remaining())
-
-// Get elements
-// var showLives = document.getElementById("lives");
-//  // Create geusses ul
-//  result = function () {
-//   wordHolder = document.getElementById('hold');
-//   correct = document.createElement('ul');
-
-//   for (var i = 0; i < word.length; i++) {
-//     correct.setAttribute('id', 'my-word');
-//     guess = document.createElement('li');
-//     guess.setAttribute('class', 'guess');
-//     if (word[i] === " ") {
-//       guess.innerHTML = " ";
-//       space = 1;
-//     } else {
-//       guess.innerHTML = "_";
-//     }
-
-//     guesses.push(guess);
-//     // wordHolder.appendChild(correct);
-//     // correct.appendChild(guess);
-//   }
-// }
-//  // Show lives
-//  comments = function () {
-//   showLives.innerHTML = "You have " + lives + " lives";
-//   if (lives < 1) {
-//     console.log("Show Lives: " + lives)
-//     showLives.innerHTML = "Game Over";
-//   }
-//   for (var i = 0; i < geusses.length; i++) {
-
-//     if (counter + space === geusses.length) {
-//       showLives.innerHTML = "You Win!";
-//     }
-//   }
-// }
-
-  //chosen word is replaced with
-  //for loop variable i starts at 0 and goes up to but does not include word.length, and each time we add a new element to answer
-  //when the loop is finished the answer will be the same length as the word
-  
-//   //
-//   //function checkLetter() {
-//   //  document.onkeyup = function(event) {
-//   //    guess = event.key.toLowerCase();
-//   //    var found = false; //lets use bool to check if a letter was found
-//   //    for (i = 0; i < randomWord.length; i++) {
-//   //      if (guess === randomWord[i]) {
-//   //        correctLetter[i] = guess;
-//   //        document.getElementById("answer").innerHTML = correctLetter.join("");
-//   //        found = true;
-//   //      }
-//   //    }
-//   //    //now all letters have been checked, was any found
-//   //    if (found) return; //if yes return
-//   //
-//   //    //wrong, lets also see if
-//   //    //it's not already logged, if not add it
-//   //    //you could also then use  wrongLetters.length
-//   //    //for working out if gueses area all used up.
-//   //    if (wrongLetters.indexOf(guess) < 0) {
-//   //      wrongLetters.push(guess);
-//   //      document.getElementById("guess").innerHTML = wrongLetters.join("");
-//   //    }
-//   //  }
-//   //}
-//   //
-//   //start();
-//   //checkLetter();
-//   //
-
-//   // // While the word has not been guessed {
-//   // //while loop continues loop as long as remaining variable is greater than 0
-//   // //needs to update for every correct guess, loop ends when it equals 0
-//   // while (remaining > 0) {
-//   // // Game code goes here
-//   // // Show the player their current progress
-//   // // Take input from the player
-//   // // Update answer and remaining for every correct guess
-//   //    var guess = function();
-//   // // Get a guess from the player
-//   //        if (guess === null) {// If the player wants to quit the game {
-//   //            break;//immediately stops loop, even while condition is true
-//        } else if (randomWord.length !== 1) {// Else If the guess is not a single letter {
-//            alert("Please enter a single letter.");
-// // Tell the player to pick a single letter
-//        } else {
-// // If the guess is in the word {
-// 			if (guess === randomWord[i]){
-
-// 			}
-// }// Update the player's progress with the guess
-// }
-
-// Creating variables to hold the number of wins, losses, and ties. They start at 0.
-//var wins = 0;
-//var guessAmt = 0;
-//var lettersUsed = 0;
+ document.onkeyup = function(){
+            //alert("press any key to start");
+            //console.log("starting game", startGame);
+            /*var anyLetter = String.fromCharCode(event.keyCode).toLowerCase();
+            alert ("Press any key to start");*/
+        /*
+        1. its going to take in the letter that we type in
+        2. its going to pass it through the CheckLetters function
+        */
+        var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+        console.log("this is the letter we type", letterGuessed);
+        checkLetters(letterGuessed);
+        roundComplete();
+};				
+							 
+ (function reloadPage(){
+    document.getElementById("reset").addEventListener("click", getText, true);
+	 
+	 function getText(){
+		 var txt = document.getElementById("reset").value;
+		 console.log(txt);
+	 }			 
+})};
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+							 
+//  var userText = document.getElementById("incorrectLetters");
+//  document.getElementById("incorrectLetters").innerHTML = "Letters already guessed: " + incorrectLetters;
 //
-
+//							 
+//  document.getElementById("lives").innerHTML = "Lives: " + lives;
+//	console.log(lives + " lives");
+//// Next, we give JavaScript a function to execute when onkeypress event fires.
+//  document.onkeypress = function() {
+//	  var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+//        console.log("this is the letter we type", letterGuessed);
+//       
+//	  					 
+// 	};		
+//				
+//document.addEventListener("keypress", guesses, true);
+//	  function guesses(){
+//	  }
+//  // car.print();
+//					
+//							 
+//  // displays letter to document
+//	   // For Loop for alphabet
+//  for (var i = 0; i < alphabet.length; i++) {
+//    console.log(alphabet[i]);
+//	
+//  }
+//							 	console.log("---------");
+//  
+//	  							 
+//// For Loop for wordList
+//for (var n = 0; n < wordList.length; n++) {
+//  console.log(wordList[n]);
+//}
 //
-//    if (guess = userGuess) {
-//            var guess = prompt("What's your guess?");
-//    console.log(guess);
+//							 	console.log("---------");
 //
-//}};
-
-// This logic determines the outcome of the game (win/loss/tie), and increments the appropriate number
-//   if (guess === alphabet[i]) {
-//     if (guess === "r" && computerGuess === "s") {
-//       wins++;
-//     } else if (userGuess === "r" && computerGuess === "p") {
-//       losses++;
-//     } else if (userGuess === "s" && computerGuess === "r") {
-//       losses++;
-//     } else if (userGuess === "s" && computerGuess === "p") {
-//       wins++;
-//     } else if (userGuess === "p" && computerGuess === "r") {
-//       wins++;
-//     } else if (userGuess === "p" && computerGuess === "s") {
-//       losses++;
-//     } else if (userGuess === computerGuess) {
-//       ties++;
+//
+//	   // displays increments of correct letters					 
+//  for (var s = 0; s < chosenWord.length; s++) {
+//    correctLetter[s] = "_";
+//	  
+//	  console.log(correctLetter);
+//  }
+//							 	console.log("---------");
+//							 		 
+//// displays increments of answer(same thing as above)							 
+//  var answer = [];
+//     for (var x = 0; x < chosenWord.length; x++) {
+//         answer[x] = "_";
+//		 
+//		 						console.log(answer);
 //     }
-
-// Creating a variable to hold our new HTML. Our HTML now keeps track of the user and computer guesses, and wins/losses/ties.
-// var html = html(
-//   "<p>You chose: " +
-//   userGuess +
-//   "</p>" +
-//   "<p>wins: " +
-//   wins +
-//   "</p>" +
-//   "<p>losses: " +
-//   losses +
-//   "</p>" +
-//   "<p>ties: " +
-//   ties +
-//   //   "</p>");
-
-//   // Set the inner HTML contents of the #game div to our html string
-//   //     document.querySelector("#game").innerHTML = html;
-//   //   }
-// };
+//							 	
+//							 	console.log("---------");
+//								 
+//	//answer line
+//  document.getElementById("answer").innerHTML = correctLetter.join(" ");
+//  for (var y = 0; y < chosenWord.length; y++) {  
+//	  correctLetter[y] ="_";
+//  	}
+//  blanks = chosenWord.length;
+//	
+//							 //displays amount of letters in answer
+//							 	console.log(blanks);
+//							 console.log("---------");
+//	   		

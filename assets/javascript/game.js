@@ -31,49 +31,49 @@ window.onload = function()  {
   
 //create array of words to start the game, all lowercase, spaces with '-'
   var wordList = [
-    "jack-sparrow",
-    "han-solo",
-    "clark-kent",
-    "james-bond",
-    "luke-skywalker",
-    "marty-mcfly",
-    "indiana-jones",
-    "ferris-bueller",
-    "john-mcclane",
-    "rocky-balboa",
-    "forrest-gump",
+    "jack sparrow",
+    "han solo",
+    "clark kent",
+    "james bond",
+    "luke skywalker",
+    "marty mcfly",
+    "indiana jones",
+    "ferris bueller",
+    "john mcclane",
+    "rocky balboa",
+    "forrest gump",
     "aragorn",
     "neo",
     "yoda",
-    "obi-wan-kenobi",
+    "obi wan kenobi",
     "woody",
-    "anakin-skywalker",
-    "ace-ventura",
-    "kevin-mccallister",
+    "anakin skywalker",
+    "ace ventura",
+    "kevin mccallister",
     "maximus",
-    "jason-bourne",
+    "jason bourne",
     "terminator",
-    "ethan-hunt",
-    "tony-montana",
-    "donnie-darko",
-    "captain-kirk",
-    "peter-parker",
-    "tony-stark",
+    "ethan hunt",
+    "tony montana",
+    "donnie darko",
+    "captain kirk",
+    "peter parker",
+    "tony stark",
     "shrek",
-    "elle-woods",
-    "bruce-wayne",
-    "sweeney-todd",
-    "benjamin-button",
-    "napoleon-dynamite",
+    "elle woods",
+    "bruce wayne",
+    "sweeney todd",
+    "benjamin button",
+    "napoleon dynamite",
     "dory",
-    "harry-potter",
+    "harrypotter",
     "gandalf",
     "mclovin",
     "wolverine",
-    "captain-america",
-    "miranda-priestly",
-    "derek-zoolander",
-    "ron-burgundy",
+    "captain america",
+    "miranda priestly",
+    "derek zoolander",
+    "ron burgundy",
     "borat"
   ];
 //  var guess; //user guess defined
@@ -83,23 +83,27 @@ window.onload = function()  {
   var blanksAndSuccesses = [];//stores right or wrong
   var blanks = 0; //counts correct letters
   var lives = 9; //counts user lives
-  var space = "-"; //for number of spaces in word '-'
+  var space = "-"; //for number of spaces in word '-'NEEDS FIXING
   var wins = 0;
   var losses = 0;
 
 function startGame (){
-	lives = 9;
+    lives = 9;
+    document.getElementById("readMe").innerHTML = "Press any key to get started!";
 	blanksAndSuccesses = [];
 	incorrectLetters = [];
 	// pick a random word from the chosen array, name new var
   chosenWord = wordList[Math.floor(Math.random() * wordList.length)];
   correctLetter = chosenWord.split("");
+  
   blanks = correctLetter.length;
   console.log(blanks);
   console.log(chosenWord);
 
   for (var u = 0; u < blanks; u++){
-	  blanksAndSuccesses.push("_");
+      blanksAndSuccesses.push("_");
+      chosenWord = chosenWord.replace(/\s+/g, '-').toLowerCase();
+        console.log(chosenWord); // "sonic-free-games"
   }
 	console.log(blanksAndSuccesses);
 	document.getElementById("answer").innerHTML = blanksAndSuccesses.join(" ");
@@ -155,33 +159,39 @@ function roundComplete() {
     		document.getElementById("losses").innerHTML = ("Losses: " + losses);
     		document.getElementById("incorrectLetters").innerHTML = "Letters already guessed: ";
     		alert("You lose :(");
-			startGame();
+			// startGame();
     	}}			 
-startGame();
+// startGame();
 
  document.onkeyup = function(){
-            //alert("press any key to start");
-            //console.log("starting game", startGame);
-            /*var anyLetter = String.fromCharCode(event.keyCode).toLowerCase();
-            alert ("Press any key to start");*/
         /*
         1. its going to take in the letter that we type in
         2. its going to pass it through the CheckLetters function
         */
         var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
-        console.log("this is the letter we type", letterGuessed);
+        
+        // console.log("this is the letter we type", letterGuessed);
+        document.getElementById("readMe").innerHTML = "";
         checkLetters(letterGuessed);
         roundComplete();
+        
+        for (var x = 0; x < alphabet.length; x++){
+            if (letterGuessed !== alphabet[x]) {
+                // alert("Choose a different letter");
+            // If we choose rock and the computer guesses scissors, increment our wins variable.
+            }
+    
 };				
 							 
- (function reloadPage(){
-    document.getElementById("reset").addEventListener("click", getText, true);
+//  (function reloadPage(){
+//     document.getElementById("reset").addEventListener("click", getText, true);
 	 
-	 function getText(){
-		 var txt = document.getElementById("reset").value;
-		 console.log(txt);
-	 }			 
-})};
+// 	 function getText(){
+// 		 var txt = document.getElementById("reset").value;
+// 		 console.log(txt);
+// 	 }			 
+// })
+}};
 							 
 							 
 							 

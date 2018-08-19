@@ -1,9 +1,10 @@
 # Word Guess Game
-# Based on the theme, choose a letter to guess 
-# who the movie protagonist is.
-# 
+
+# Press a letter to guess the movie character.
+# You have nine guesses before you lose. 
+# Wins and Losses are tallied and letters guessed are displayed
+# Do not press the same letter twice if you are incorrect, bc it will count
 #
-<!-- 
 1. Pick a random word.
 2. Take the player’s guess.
 3. Quit the game if the player wants to.
@@ -11,4 +12,3 @@
 5. Keep track of letters the player has guessed.
 6. Show the player their progress.
 7. Finish when the player has guessed the word. 
--->
